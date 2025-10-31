@@ -1,0 +1,55 @@
+<app-header></app-header>
+
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-5">📚 My Flashcards</h1>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        ➕ Create Flashcard
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && flashcards.length === 0" class="text-center py-5">
+    <h3>No flashcards yet</h3>
+    <p>Create your first flashcard to get started!</p>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && flashcards.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let flashcard of flashcards">
+      <app-flashcard-card 
+        [flashcard]="flashcard"
+        (edit)="openEditModal($event)"
+        (delete)="onFlashcardDeleted()">
+      </app-flashcard-card>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="showFormModal" [style.display]="showFormModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ editingFlashcard ? 'Edit' : 'Create' }} Flashcard</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-flashcard-form 
+          [flashcard]="editingFlashcard"
+          (saved)="onFlashcardSaved()"
+          (cancelled)="closeModal()">
+        </app-flashcard-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

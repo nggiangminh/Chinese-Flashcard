@@ -1,0 +1,42 @@
+<form [formGroup]="flashcardForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3">
+    <label for="frontText" class="form-label">Front Text (Chinese)</label>
+    <textarea 
+      class="form-control" 
+      id="frontText" 
+      formControlName="frontText"
+      rows="3"
+      [class.is-invalid]="flashcardForm.get('frontText')?.invalid && flashcardForm.get('frontText')?.touched">
+    </textarea>
+    <div class="invalid-feedback" *ngIf="flashcardForm.get('frontText')?.invalid && flashcardForm.get('frontText')?.touched">
+      Front text is required
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label for="backText" class="form-label">Back Text (Translation/Pinyin)</label>
+    <textarea 
+      class="form-control" 
+      id="backText" 
+      formControlName="backText"
+      rows="3"
+      [class.is-invalid]="flashcardForm.get('backText')?.invalid && flashcardForm.get('backText')?.touched">
+    </textarea>
+    <div class="invalid-feedback" *ngIf="flashcardForm.get('backText')?.invalid && flashcardForm.get('backText')?.touched">
+      Back text is required
+    </div>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || flashcardForm.invalid">
+      {{ isSubmitting ? 'Saving...' : 'Save' }}
+    </button>
+    <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="isSubmitting">
+      Cancel
+    </button>
+  </div>
+</form>

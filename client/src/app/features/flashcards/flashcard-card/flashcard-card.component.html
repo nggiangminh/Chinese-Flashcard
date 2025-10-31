@@ -1,0 +1,25 @@
+<div class="card h-100">
+  <div class="card-body" (click)="flip()">
+    <div *ngIf="!isFlipped">
+      <h3 class="text-center">{{ flashcard.frontText }}</h3>
+      <p class="text-center text-muted small">Click to flip</p>
+    </div>
+    <div *ngIf="isFlipped">
+      <h3 class="text-center">{{ flashcard.backText }}</h3>
+      <p class="text-center text-muted small">Click to flip back</p>
+    </div>
+  </div>
+  <div class="card-footer">
+    <button 
+      class="btn btn-sm btn-outline-primary me-2" 
+      (click)="onEdit(); $event.stopPropagation()">
+      Edit
+    </button>
+    <button 
+      class="btn btn-sm btn-outline-danger" 
+      (click)="onDelete(); $event.stopPropagation()"
+      [disabled]="isDeleting">
+      {{ isDeleting ? 'Deleting...' : 'Delete' }}
+    </button>
+  </div>
+</div>

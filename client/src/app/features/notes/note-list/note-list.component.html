@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<div class="container my-5">
+  <div class="row mb-4">
+    <div class="col">
+      <h1 class="display-5">📝 My Notes</h1>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-primary" (click)="openCreateModal()">
+        ➕ Create Note
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && notes.length === 0" class="text-center py-5">
+    <h3>No notes yet</h3>
+    <p>Create your first note to get started!</p>
+  </div>
+
+  <div class="row" *ngIf="!isLoading && notes.length > 0">
+    <div class="col-md-4 mb-4" *ngFor="let note of notes">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ note.title }}</h5>
+          <p class="card-text">{{ note.content.substring(0, 100) }}{{ note.content.length > 100 ? '...' : '' }}</p>
+          <p class="text-muted small">
+            Created: {{ note.createdAt | date:'short' }}
+          </p>
+        </div>
+        <div class="card-footer">
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="openEditModal(note)">
+            Edit
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="onNoteDelete(note.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="showFormModal" [style.display]="showFormModal ? 'block' : 'none'">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ editingNote ? 'Edit' : 'Create' }} Note</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <app-note-form 
+          [note]="editingNote"
+          (saved)="onNoteSaved()"
+          (cancelled)="closeModal()">
+        </app-note-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

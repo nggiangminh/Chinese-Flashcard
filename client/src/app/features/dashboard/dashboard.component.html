@@ -1,0 +1,76 @@
+<app-header></app-header>
+
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <h1 class="display-5 mb-4">Welcome, {{ currentUser?.name }}! 👋</h1>
+    </div>
+  </div>
+
+  <div class="row mb-4" *ngIf="!isLoading">
+    <div class="col-md-6 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">📚 Total Flashcards</h5>
+          <p class="card-text display-6">{{ flashcardCount }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">📝 Total Notes</h5>
+          <p class="card-text display-6">{{ noteCount }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">🗂️ Browse Flashcards</h5>
+          <p class="card-text">View and study your flashcard collection</p>
+          <a routerLink="/flashcards" class="btn btn-primary">Go to Flashcards</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">➕ Create Flashcard</h5>
+          <p class="card-text">Add new Chinese characters to learn</p>
+          <a routerLink="/flashcards" class="btn btn-success">Create New</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">📓 My Notes</h5>
+          <p class="card-text">Access your learning notes</p>
+          <a routerLink="/notes" class="btn btn-info">View Notes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">💡 Study Tips</h5>
+          <ul>
+            <li>Practice regularly for better retention</li>
+            <li>Review flashcards multiple times</li>
+            <li>Take notes on difficult characters</li>
+            <li>Focus on both reading and writing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
