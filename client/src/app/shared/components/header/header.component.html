@@ -15,8 +15,16 @@
           <a class="nav-link" routerLink="/notes" routerLinkActive="active">Notes</a>
         </li>
       </ul>
-      <div class="d-flex align-items-center" *ngIf="currentUser">
-        <span class="badge bg-brutal-primary me-3">{{ currentUser.name }}</span>
+      <div class="d-flex align-items-center gap-3" *ngIf="currentUser">
+        <!-- Dark Mode Toggle Button -->
+        <button 
+          class="btn btn-outline-dark btn-sm border-brutal" 
+          (click)="toggleTheme()"
+          [title]="isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          style="min-width: 45px;">
+          <span style="font-size: 18px;">{{ isDarkMode ? '☀️' : '🌙' }}</span>
+        </button>
+        <span class="badge bg-brutal-primary">{{ currentUser.name }}</span>
         <button class="btn btn-outline-danger btn-sm" (click)="logout()">Logout</button>
       </div>
     </div>
