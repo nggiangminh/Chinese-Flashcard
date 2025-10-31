@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: chinese-flashcard-server
+
+  # Cấu hình DataSource - PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/chinese_flashcard
+    username: postgres
+    password: Minh2263@
+    driver-class-name: org.postgresql.Driver
+
+  # Cấu hình JPA/Hibernate
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update  # Tự động tạo/update schema (development)
+    show-sql: true      # Hiển thị SQL queries trong console
+    properties:
+      hibernate:
+        format_sql: true  # Format SQL cho dễ đọc
+        use_sql_comments: true
+        jdbc:
+          time_zone: Asia/Ho_Chi_Minh
+    open-in-view: false  # Tắt OSIV pattern (best practice)
+
+  # Cấu hình Server
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.learning.server: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
