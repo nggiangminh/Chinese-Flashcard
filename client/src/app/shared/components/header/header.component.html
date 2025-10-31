@@ -1,11 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/dashboard">🇨🇳 Chinese Flashcards</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand" routerLink="/dashboard">
+      <span class="text-black">🇨🇳 Chinese Flashcards</span>
+    </a>
+    <button class="navbar-toggler border-brutal" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/flashcards" routerLinkActive="active">Flashcards</a>
         </li>
@@ -14,8 +16,8 @@
         </li>
       </ul>
       <div class="d-flex align-items-center" *ngIf="currentUser">
-        <span class="me-3">{{ currentUser.name }}</span>
-        <button class="btn btn-outline-danger" (click)="logout()">Logout</button>
+        <span class="badge bg-brutal-primary me-3">{{ currentUser.name }}</span>
+        <button class="btn btn-outline-danger btn-sm" (click)="logout()">Logout</button>
       </div>
     </div>
   </div>

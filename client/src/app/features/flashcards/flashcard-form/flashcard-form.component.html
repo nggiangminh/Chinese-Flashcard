@@ -1,41 +1,43 @@
 <form [formGroup]="flashcardForm" (ngSubmit)="onSubmit()">
-  <div class="mb-3">
-    <label for="frontText" class="form-label">Front Text (Chinese)</label>
+  <div class="mb-4">
+    <label for="frontText" class="form-label text-uppercase-brutal">Front Text (Chinese)</label>
     <textarea 
-      class="form-control" 
+      class="form-control border-brutal" 
       id="frontText" 
       formControlName="frontText"
       rows="3"
+      placeholder="Enter Chinese characters..."
       [class.is-invalid]="flashcardForm.get('frontText')?.invalid && flashcardForm.get('frontText')?.touched">
     </textarea>
-    <div class="invalid-feedback" *ngIf="flashcardForm.get('frontText')?.invalid && flashcardForm.get('frontText')?.touched">
+    <div class="invalid-feedback text-bold" *ngIf="flashcardForm.get('frontText')?.invalid && flashcardForm.get('frontText')?.touched">
       Front text is required
     </div>
   </div>
 
-  <div class="mb-3">
-    <label for="backText" class="form-label">Back Text (Translation/Pinyin)</label>
+  <div class="mb-4">
+    <label for="backText" class="form-label text-uppercase-brutal">Back Text (Translation/Pinyin)</label>
     <textarea 
-      class="form-control" 
+      class="form-control border-brutal" 
       id="backText" 
       formControlName="backText"
       rows="3"
+      placeholder="Enter translation and pinyin..."
       [class.is-invalid]="flashcardForm.get('backText')?.invalid && flashcardForm.get('backText')?.touched">
     </textarea>
-    <div class="invalid-feedback" *ngIf="flashcardForm.get('backText')?.invalid && flashcardForm.get('backText')?.touched">
+    <div class="invalid-feedback text-bold" *ngIf="flashcardForm.get('backText')?.invalid && flashcardForm.get('backText')?.touched">
       Back text is required
     </div>
   </div>
 
-  <div class="alert alert-danger" *ngIf="errorMessage">
-    {{ errorMessage }}
+  <div class="alert alert-danger border-brutal shadow-brutal-sm" *ngIf="errorMessage">
+    <strong>Error:</strong> {{ errorMessage }}
   </div>
 
   <div class="d-flex gap-2">
     <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || flashcardForm.invalid">
-      {{ isSubmitting ? 'Saving...' : 'Save' }}
+      {{ isSubmitting ? 'Saving...' : 'Save Flashcard' }}
     </button>
-    <button type="button" class="btn btn-secondary" (click)="onCancel()" [disabled]="isSubmitting">
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()" [disabled]="isSubmitting">
       Cancel
     </button>
   </div>

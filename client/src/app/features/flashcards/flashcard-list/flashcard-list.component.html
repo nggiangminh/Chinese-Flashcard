@@ -1,47 +1,60 @@
 <app-header></app-header>
 
-<div class="container my-5">
-  <div class="row mb-4">
-    <div class="col">
-      <h1 class="display-5">📚 My Flashcards</h1>
+<div class="grid-page py-5">
+  <div class="container">
+    <!-- Header -->
+    <div class="row mb-4">
+      <div class="col">
+        <h1 class="display-5 text-black text-uppercase-brutal">📚 My Flashcards</h1>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-primary btn-lg" (click)="openCreateModal()">
+          ➕ Create Flashcard
+        </button>
+      </div>
     </div>
-    <div class="col-auto">
-      <button class="btn btn-primary" (click)="openCreateModal()">
-        ➕ Create Flashcard
-      </button>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3 text-bold">Loading flashcards...</p>
     </div>
-  </div>
 
-  <div *ngIf="isLoading" class="text-center py-5">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
+    <!-- Empty State -->
+    <div *ngIf="!isLoading && flashcards.length === 0" class="text-center py-5">
+      <div class="card border-brutal shadow-brutal bg-brutal-warning p-5">
+        <h3 class="text-black mb-3">No flashcards yet</h3>
+        <p class="text-bold mb-4">Create your first flashcard to get started!</p>
+        <button class="btn btn-primary btn-lg" (click)="openCreateModal()">
+          Create Your First Flashcard
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div *ngIf="!isLoading && flashcards.length === 0" class="text-center py-5">
-    <h3>No flashcards yet</h3>
-    <p>Create your first flashcard to get started!</p>
-  </div>
-
-  <div class="row" *ngIf="!isLoading && flashcards.length > 0">
-    <div class="col-md-4 mb-4" *ngFor="let flashcard of flashcards">
-      <app-flashcard-card 
-        [flashcard]="flashcard"
-        (edit)="openEditModal($event)"
-        (delete)="onFlashcardDeleted()">
-      </app-flashcard-card>
+    <!-- Flashcard Grid -->
+    <div class="row g-4" *ngIf="!isLoading && flashcards.length > 0">
+      <div class="col-md-4" *ngFor="let flashcard of flashcards">
+        <app-flashcard-card 
+          [flashcard]="flashcard"
+          (edit)="openEditModal($event)"
+          (delete)="onFlashcardDeleted()">
+        </app-flashcard-card>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="modal" [class.show]="showFormModal" [style.display]="showFormModal ? 'block' : 'none'">
-  <div class="modal-dialog">
+<!-- Modal -->
+<div class="modal" [class.show]="showFormModal" [style.display]="showFormModal ? 'block' : 'none'" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{ editingFlashcard ? 'Edit' : 'Create' }} Flashcard</h5>
+      <div class="modal-header border-brutal-bottom">
+        <h5 class="modal-title text-black">{{ editingFlashcard ? 'Edit' : 'Create' }} Flashcard</h5>
         <button type="button" class="btn-close" (click)="closeModal()"></button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body p-4">
         <app-flashcard-form 
           [flashcard]="editingFlashcard"
           (saved)="onFlashcardSaved()"
@@ -51,5 +64,8 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade" [class.show]="showFormModal" *ngIf="showFormModal"></div>
 
 <app-footer></app-footer>

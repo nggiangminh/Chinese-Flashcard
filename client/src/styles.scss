@@ -1,0 +1,109 @@
+// 🎨 Chinese Flashcard App - Neo-Brutalism Styles
+
+// Import Sass modules first (required by Dart Sass)
+@use 'sass:color';
+@use 'styles/variables' as *;
+
+// Import Bootstrap with custom variables
+@use 'bootstrap/scss/bootstrap' with (
+  $primary: $primary,
+  $secondary: $secondary,
+  $success: $success,
+  $warning: $warning,
+  $danger: $danger,
+  $info: $info,
+  $border-width: $border-width,
+  $border-radius: $border-radius,
+  $font-family-base: $font-family-base,
+  $font-family-monospace: $font-family-monospace,
+  $headings-font-weight: $headings-font-weight
+);
+
+// Import Custom Neo-Brutalism Styles
+@use 'styles/brutalism' as *;
+
+// Google Fonts Import (CSS import must come after @use rules)
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+// ===================================
+// Global Styles
+// ===================================
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $black;
+  background-color: $gray-100;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 900;
+  color: $black;
+}
+
+// Links
+a {
+  color: $primary;
+  text-decoration: none;
+  font-weight: 700;
+  
+  &:hover {
+    color: color.adjust($primary, $lightness: -10%);
+    text-decoration: underline;
+  }
+}
+
+// Selection
+::selection {
+  background-color: $warning;
+  color: $black;
+}
+
+::-moz-selection {
+  background-color: $warning;
+  color: $black;
+}
+
+// Scrollbar (Webkit)
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-100;
+  border-left: 4px solid $black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+  border: 2px solid $black;
+  
+  &:hover {
+    background: color.adjust($primary, $lightness: -10%);
+  }
+}
+
+// Focus outline
+:focus-visible {
+  outline: 4px solid $primary;
+  outline-offset: 2px;
+}
+
+// Disable default focus for mouse users
+:focus:not(:focus-visible) {
+  outline: none;
+}

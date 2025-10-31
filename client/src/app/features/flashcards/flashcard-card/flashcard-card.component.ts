@@ -16,11 +16,16 @@ export class FlashcardCardComponent {
 
   isFlipped = false;
   isDeleting = false;
+  showActionsMenu = false;
 
   constructor(private flashcardService: FlashcardService) {}
 
   flip(): void {
     this.isFlipped = !this.isFlipped;
+  }
+
+  toggleActionsMenu(): void {
+    this.showActionsMenu = !this.showActionsMenu;
   }
 
   onEdit(): void {
