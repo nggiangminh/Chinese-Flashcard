@@ -1,0 +1,49 @@
+<div class="card border-brutal shadow-brutal position-relative" style="overflow: visible;">
+  <!-- Circle Action Button (Top Right) -->
+  <button 
+    class="btn btn-sm btn-dark rounded-circle position-absolute shadow-brutal-sm" 
+    (click)="toggleActionsMenu(); $event.stopPropagation()"
+    style="top: 10px; right: 10px; width: 36px; height: 36px; padding: 0; z-index: 20; border: 3px solid black;">
+    <span style="font-weight: 900; font-size: 18px;">⋮</span>
+  </button>
+
+  <!-- Popup Action Menu -->
+  <div 
+    *ngIf="showActionsMenu" 
+    class="position-absolute bg-white border-brutal shadow-brutal-lg p-3"
+    (click)="$event.stopPropagation()"
+    style="top: 55px; right: 10px; z-index: 30; min-width: 150px;">
+    <button 
+      class="btn btn-sm btn-outline-primary w-100 mb-2" 
+      (click)="onEdit(); toggleActionsMenu()">
+      ✏️ Edit
+    </button>
+    <button 
+      class="btn btn-sm btn-outline-danger w-100" 
+      (click)="onDelete(); toggleActionsMenu()"
+      [disabled]="isDeleting">
+      🗑️ {{ isDeleting ? 'Deleting...' : 'Delete' }}
+    </button>
+  </div>
+
+  <!-- Flashcard Flip Container -->
+  <div class="flashcard-flip cursor-pointer" [class.flipped]="isFlipped">
+    <div class="flashcard-inner">
+      <!-- Front Side -->
+      <div class="flashcard-front" (click)="flip()">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center p-4" style="min-height: 250px; background-color: white;">
+          <h2 class="display-4 text-center text-black mb-3">{{ flashcard.frontText }}</h2>
+          <p class="text-muted small text-center">Click to flip</p>
+        </div>
+      </div>
+      
+      <!-- Back Side -->
+      <div class="flashcard-back" (click)="flip()">
+        <div class="card-body d-flex flex-column justify-content-center align-items-center p-4" style="min-height: 250px; background-color: #FFE66D;">
+          <h3 class="h4 text-center text-black mb-3">{{ flashcard.backText }}</h3>
+          <p class="text-muted small text-center">Click to flip back</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

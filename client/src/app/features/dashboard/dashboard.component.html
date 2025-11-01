@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<div class="dashboard-page py-5">
+  <div class="container">
+    <!-- Welcome Section -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card welcome-card border-brutal shadow-brutal p-4">
+          <h1 class="display-5 text-black mb-0">
+            Welcome, {{ currentUser?.name }}! 👋
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-5" *ngIf="!isLoading">
+      <div class="col-md-6 mb-4">
+        <div class="card stat-card border-brutal shadow-brutal text-center p-4">
+          <h5 class="card-title text-uppercase-brutal mb-3">📚 Total Flashcards</h5>
+          <p class="display-6 mb-0">{{ flashcardCount }}</p>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="card stat-card border-brutal shadow-brutal text-center p-4">
+          <h5 class="card-title text-uppercase-brutal mb-3">📝 Total Notes</h5>
+          <p class="display-6 mb-0">{{ noteCount }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-4">
+      <div class="col-12 mb-3">
+        <h2 class="text-black text-uppercase-brutal">Quick Actions</h2>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 card-hover border-brutal shadow-brutal" routerLink="/flashcards">
+          <div class="card-body p-4">
+            <h3 class="h4 text-bold mb-3">🗂️ Browse Flashcards</h3>
+            <p class="mb-0">View and study your flashcard collection</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 card-hover border-brutal shadow-brutal bg-brutal-success" routerLink="/flashcards">
+          <div class="card-body p-4">
+            <h3 class="h4 text-bold mb-3">➕ Create Flashcard</h3>
+            <p class="mb-0">Add new Chinese characters to learn</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 card-hover border-brutal shadow-brutal bg-brutal-secondary" routerLink="/notes">
+          <div class="card-body p-4">
+            <h3 class="h4 text-bold mb-3">📓 My Notes</h3>
+            <p class="mb-0">Access your learning notes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Study Tips -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-brutal shadow-brutal bg-brutal-warning">
+          <div class="card-body p-4">
+            <h3 class="h4 text-black text-uppercase-brutal mb-3">💡 Study Tips</h3>
+            <ul class="mb-0 text-bold">
+              <li>Practice regularly for better retention</li>
+              <li>Review flashcards multiple times</li>
+              <li>Take notes on difficult characters</li>
+              <li>Focus on both reading and writing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

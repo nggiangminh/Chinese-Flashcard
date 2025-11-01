@@ -1,0 +1,43 @@
+<app-header></app-header>
+
+<div class="container my-5">
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && flashcard">
+    <div class="row mb-4">
+      <div class="col">
+        <button class="btn btn-outline-secondary" (click)="goBack()">
+          ← Back to List
+        </button>
+      </div>
+      <div class="col-auto">
+        <button class="btn btn-outline-danger" (click)="onDelete()">
+          Delete
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card" (click)="flip()">
+          <div class="card-body text-center py-5">
+            <div *ngIf="!isFlipped">
+              <h1 class="display-3">{{ flashcard.frontText }}</h1>
+              <p class="text-muted">Click to see translation</p>
+            </div>
+            <div *ngIf="isFlipped">
+              <h1 class="display-3">{{ flashcard.backText }}</h1>
+              <p class="text-muted">Click to see Chinese</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

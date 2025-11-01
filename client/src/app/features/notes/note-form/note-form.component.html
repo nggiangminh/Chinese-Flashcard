@@ -1,0 +1,45 @@
+<form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+  <div class="mb-4">
+    <label for="title" class="form-label text-uppercase-brutal">Title</label>
+
+    <input type="text" class="form-control border-brutal" id="title" formControlName="title"
+      placeholder="Enter note title..."
+      [class.is-invalid]="noteForm.get('title')?.invalid && noteForm.get('title')?.touched">
+
+    @if (noteForm.get('title')?.invalid && noteForm.get('title')?.touched) {
+    <div class="invalid-feedback text-bold">
+      Title is required
+    </div>
+    }
+  </div>
+
+
+  <div class="mb-4">
+    <label for="content" class="form-label text-uppercase-brutal">Content</label>
+    <textarea class="form-control border-brutal" id="content" formControlName="content" rows="8"
+      placeholder="Enter your notes..."
+      [class.is-invalid]="noteForm.get('content')?.invalid && noteForm.get('content')?.touched">
+    </textarea>
+
+    @if (noteForm.get('content')?.invalid && noteForm.get('content')?.touched) {
+    <div class="invalid-feedback text-bold">
+      Content is required
+    </div>
+    }
+  </div>
+
+  @if(errorMessage){
+  <div class="alert alert-danger border-brutal shadow-brutal-sm">
+    <strong>Error:</strong> {{ errorMessage }}
+  </div>
+  }
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-secondary" [disabled]="isSubmitting || noteForm.invalid">
+      {{ isSubmitting ? 'Saving...' : 'Save Note' }}
+    </button>
+    <button type="button" class="btn btn-outline-secondary" (click)="onCancel()" [disabled]="isSubmitting">
+      Cancel
+    </button>
+  </div>
+</form>
