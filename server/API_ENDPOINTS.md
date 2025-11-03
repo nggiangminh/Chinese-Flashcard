@@ -2,6 +2,17 @@
 
 Base URL: `http://localhost:8080`
 
+## ⚙️ Prerequisites
+
+**Environment Variables Required:**
+- `GOOGLE_CLIENT_ID`: Google OAuth2 Client ID
+- `GOOGLE_CLIENT_SECRET`: Google OAuth2 Client Secret
+
+**Setup:**
+1. Copy `.env.example` to `.env`
+2. Fill in your Google OAuth2 credentials
+3. Start server: `./gradlew bootRun`
+
 ## 🔐 Authentication Endpoints
 
 ### OAuth2 Login

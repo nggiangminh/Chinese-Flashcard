@@ -49,23 +49,54 @@ Sao chép **Client ID** và **Client Secret** để cấu hình trong applicatio
 
 ## ⚙️ Environment Variables
 
-Tạo file `.env` hoặc cấu hình environment variables:
+**Quan trọng**: Client ID và Client Secret giờ được ẩn và yêu cầu environment variables.
 
+### Cách 1: Tạo file .env (Khuyên dùng)
+
+1. Copy file `.env.example` thành `.env`:
 ```bash
-# Database
-DB_USERNAME=flashcard_user
-DB_PASSWORD=flashcard_password
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=flashcard_dev
-
-# Google OAuth2
-GOOGLE_CLIENT_ID=your-google-client-id-here
-GOOGLE_CLIENT_SECRET=your-google-client-secret-here
-
-# Server
-PORT=8080
+cp .env.example .env
 ```
+
+2. Chỉnh sửa file `.env` với các giá trị thực:
+```bash
+# Database Configuration
+DB_USERNAME=postgres
+DB_PASSWORD=your_database_password
+
+# Google OAuth2 Configuration
+GOOGLE_CLIENT_ID=123456789-abcdefghijklmnopqrstuvwxyz.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=GOCSPX-abcdefghijklmnopqrstuvwxyz
+```
+
+### Cách 2: System Environment Variables
+
+**Windows (CMD)**:
+```cmd
+set GOOGLE_CLIENT_ID=your_client_id_here
+set GOOGLE_CLIENT_SECRET=your_client_secret_here
+```
+
+**Windows (PowerShell)**:
+```powershell
+$env:GOOGLE_CLIENT_ID="your_client_id_here"
+$env:GOOGLE_CLIENT_SECRET="your_client_secret_here"
+```
+
+**Linux/macOS**:
+```bash
+export GOOGLE_CLIENT_ID="your_client_id_here"
+export GOOGLE_CLIENT_SECRET="your_client_secret_here"
+```
+
+### Cách 3: IDE Environment Variables
+
+Trong IntelliJ IDEA hoặc VS Code, set environment variables trong Run Configuration.
+
+**⚠️ Lưu ý bảo mật**:
+- File `.env` đã được thêm vào `.gitignore`
+- Không bao giờ commit các credentials thực vào Git
+- Sử dụng `.env.example` để hướng dẫn team members
 
 ## 🚀 Chạy ứng dụng
 
