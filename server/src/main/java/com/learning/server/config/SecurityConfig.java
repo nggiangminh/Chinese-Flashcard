@@ -2,6 +2,12 @@ package com.learning.server.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learning.server.response.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -25,6 +31,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/public/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/login/oauth2/**", "/oauth2/**").permitAll()
+                        .requestMatchers("/api/user/status").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
                         // Protected endpoints
                         .requestMatchers("/api/user/me").authenticated()
                         .requestMatchers("/api/flashcards/**").authenticated()
@@ -32,12 +40,20 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .defaultSuccessUrl("http://localhost:3000/dashboard", true)
-                        .failureUrl("http://localhost:3000/login?error=true")
+                        .defaultSuccessUrl("/api/auth/success", true)
+                        .failureUrl("/api/auth/failure")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .logoutSuccessUrl("http://localhost:3000/")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            response.setCharacterEncoding("UTF-8");
+
+                            ApiResponse<String> apiResponse = new ApiResponse<>("SUCCESS", "Đăng xuất thành công", "LOGGED_OUT");
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            response.getWriter().write(objectMapper.writeValueAsString(apiResponse));
+                        })
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)
                         .deleteCookies("JSESSIONID")
@@ -45,6 +61,8 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
