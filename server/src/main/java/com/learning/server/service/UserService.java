@@ -1,4 +1,3 @@
-
 package com.learning.server.service;
 
 import com.learning.server.dto.UserDTO;
@@ -11,6 +10,14 @@ import java.util.UUID;
  * Định nghĩa các business logic liên quan đến User
  */
 public interface UserService {
+
+    /**
+     * Tìm user hoặc tạo mới user (dành cho OAuth login)
+     * @param email Email user
+     * @param name Tên user
+     * @return UserDTO
+     */
+    UserDTO findOrCreateUser(String email, String name);
 
     /**
      * Tạo user mới hoặc lấy user đã tồn tại (cho OAuth login)
@@ -49,9 +56,16 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     /**
-     * Xóa user theo ID
+     * Cập nhật thông tin user
+     * @param id UUID của user
+     * @param userDTO Thông tin cập nhật
+     * @return UserDTO đã cập nhật
+     */
+    UserDTO updateUser(UUID id, UserDTO userDTO);
+
+    /**
+     * Xóa user
      * @param id UUID của user
      */
     void deleteUser(UUID id);
 }
-

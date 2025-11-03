@@ -1,45 +1,56 @@
 spring:
-  application:
-    name: chinese-flashcard-server
-
-  # Cấu hình DataSource - PostgreSQL
+  # Database configuration
   datasource:
     url: jdbc:postgresql://localhost:5432/chinese_flashcard
     username: postgres
-    password: Minh2263@
+    password: "Minh2263@"
     driver-class-name: org.postgresql.Driver
 
-  # Cấu hình JPA/Hibernate
+  # JPA configuration
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update  # Tự động tạo/update schema (development)
-    show-sql: true      # Hiển thị SQL queries trong console
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true  # Format SQL cho dễ đọc
-        use_sql_comments: true
-        jdbc:
-          time_zone: Asia/Ho_Chi_Minh
-    open-in-view: false  # Tắt OSIV pattern (best practice)
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
-  # Cấu hình Server
+  # OAuth2 configuration
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:73484924367-0u2em285ssg4162a0kps65lhjm4goujh.apps.googleusercontent.com}
+            client-secret: ${GOOGLE_CLIENT_SECRET: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}
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope:
+              - email
+              - profile
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v2/userinfo
+            user-name-attribute: email
+
+# Server configuration
 server:
   port: 8080
   servlet:
-    context-path: /
-  error:
-    include-message: always
-    include-binding-errors: always
+    session:
+      timeout: 30m
+      cookie:
+        http-only: true
+        secure: false # Set to true in production with HTTPS
+        same-site: lax
 
 # Logging configuration
 logging:
   level:
-    root: INFO
     com.learning.server: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-

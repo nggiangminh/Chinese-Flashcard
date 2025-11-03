@@ -1,6 +1,9 @@
 package com.learning.server.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -16,17 +19,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
+    @NotEmpty(message = "Tên không được để trống")
+    @Size(max = 100, message = "Tên không được vượt quá 100 ký tự")
+    @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Email(message = "Email không hợp lệ")
+    @NotEmpty(message = "Email không được để trống")
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @NotEmpty(message = "Provider không được để trống")
+    @Column(nullable = false, length = 50)
     private String provider;
 
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 }
-

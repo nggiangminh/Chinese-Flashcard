@@ -1,0 +1,38 @@
+# Development Profile Configuration
+spring:
+  # Database configuration for development
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flashcard_dev
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:password}
+    driver-class-name: org.postgresql.Driver
+
+  # JPA configuration for development
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Creates fresh schema on startup
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        use_sql_comments: true
+
+# Server configuration for development
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        secure: false # HTTP allowed in development
+
+# Logging configuration for development
+logging:
+  level:
+    com.learning.server: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.security.oauth2: TRACE
+    org.springframework.security.web: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
